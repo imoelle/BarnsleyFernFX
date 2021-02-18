@@ -1,0 +1,36 @@
+Instructions to make IntelliJ IDEA ready to use JavaFX
+------------------------------------------------------
+This instructions are written for:
+
+IntelliJ IDEA 2020.3.1 (Community Edition)
+Build #IC-203.6682.168, built on December 29, 2020
+Runtime version: 11.0.9.1+11-b1145.63 amd64
+VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o.
+Windows 10 10.0
+GC: ParNew, ConcurrentMarkSweep
+Memory: 2000M
+Cores: 4
+Non-Bundled Plugins: org.jetbrains.kotlin
+------------------------------------------------------
+Create a new Project:
+    * click on File -> Project Structure -> Libraries
+    * click on (+) -> and add the JFX SDK location -> folder lib
+    * click on apply
+
+Modify the VM options:
+    * click on Run -> Edit Configurations
+    * click on Modify Options -> choose Add VM Options
+    * type in the following macros:
+      --module-path D:\Programmierung\Runtime\javafx-sdk-14.0.1\lib --add-modules javafx.controls
+
+Note: the written path is an example. It must be replaced with the right one
+------------------------------------------------------
+How to activate debugger:
+	* click on File -> Settings -> Build, Execution, Deployment -> Debugger -> Data Views -> Async Stack Trace
+	* deselect instrumenting agent (requires debugger restart)
+
+Alternative way:
+	* click on File -> Settings
+	* type into search field "async"
+	* deselect instrumenting agent (requires debugger restart)
+------------------------------------------------------
