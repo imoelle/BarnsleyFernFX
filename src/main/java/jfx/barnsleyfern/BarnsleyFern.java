@@ -36,6 +36,7 @@ public class BarnsleyFern extends Application {
 
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         g = canvas.getGraphicsContext2D();
+
         root.getChildren().add(canvas);
 
         return root;
@@ -65,6 +66,7 @@ public class BarnsleyFern extends Application {
 
             drawPoint(stolenMap(x, -2.1820, 2.6558, 0,  WIDTH),
                     stolenMap(y, 0,  9.9983, HEIGHT,  0));
+
 //            drawPoint(x, y);
 
         }
@@ -72,8 +74,9 @@ public class BarnsleyFern extends Application {
     }
 
     private void drawPoint(double x, double y) {
-//        int width = (int)Math.round(WIDTH/2+x * WIDTH/12);
-//        int height = (int)Math.round(HEIGHT-y * HEIGHT/12);
+        double width = x;//(int)Math.round(WIDTH/2+x * WIDTH/12);
+        double height = y;//(int)Math.round(HEIGHT-y * HEIGHT/12);
+        System.out.println("(width, height) = (" + width + ", " + height + ")");
 //        g.fillOval(width, height, 1, 1);
         g.fillOval(x, y, 1, 1);
     }
@@ -89,7 +92,6 @@ public class BarnsleyFern extends Application {
         primaryStage.setResizable(false);
         primaryStage.setTitle("Barnsley Fern FX");
         primaryStage.show();
-
 
         t.start();
     }
