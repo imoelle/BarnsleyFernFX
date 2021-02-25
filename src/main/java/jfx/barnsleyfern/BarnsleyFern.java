@@ -7,14 +7,15 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BarnsleyFern extends Application {
 
-    private final int WIDTH = 640;
-    private final int HEIGHT = 480;
+    private final int WIDTH = 1024;
+    private final int HEIGHT = 768;
 
     private GraphicsContext g;
 
@@ -44,41 +45,38 @@ public class BarnsleyFern extends Application {
 
     private void onUpdate() {
         double xn, yn;
-        for(int i = 0; i < 50; i++) {
+        for(int i = 0; i < 150; i++) {
             double rnd = ThreadLocalRandom.current().nextDouble();
 
             if (rnd <= 0.01) {
                 xn = 0;
                 yn = 0.16 * y;
-            } else if (rnd <= 0.85) {
-                xn = 0.85 * x + 0.004 * y;
-                yn = -0.004 * x + 0.85 * y + 1.6;
-            } else if (rnd <= 0.93) {
+                g.setFill(Color.rgb(134, 218, 118));
+            } else if (rnd <= 0.08) {
                 xn = 0.2 * x - 0.26 * y;
                 yn = 0.23 * x + 0.22 * y + 1.6;
-            } else {
+                g.setFill(Color.rgb(39, 81, 31));
+            } else if (rnd <= 0.15) {
                 xn = -0.15 * x + 0.28 * y;
                 yn = 0.26 * x + 0.24 * y + 0.44;
+                g.setFill(Color.rgb(42, 255, 0));
+            } else {
+                xn = 0.85 * x + 0.04 * y;
+                yn = -0.04 * x + 0.85 * y + 1.6;
+                g.setFill(Color.rgb(24, 143, 0));
             }
 
             x = xn;
             y = yn;
 
-            drawPoint(stolenMap(x, -2.1820, 2.6558, 0,  WIDTH),
-                    stolenMap(y, 0,  9.9983, HEIGHT,  0));
-
-//            drawPoint(x, y);
-
+            drawPoint(x, y);
         }
-
     }
 
     private void drawPoint(double x, double y) {
-        double width = x;//(int)Math.round(WIDTH/2+x * WIDTH/12);
-        double height = y;//(int)Math.round(HEIGHT-y * HEIGHT/12);
-        System.out.println("(width, height) = (" + width + ", " + height + ")");
-//        g.fillOval(width, height, 1, 1);
-        g.fillOval(x, y, 1, 1);
+        double width = scaleSize(x, -2.1820, 2.6558, 0,  WIDTH);
+        double height = scaleSize(y, 0,  9.9983, HEIGHT,  0);
+        g.fillOval(width, height, 1, 1);
     }
 
     public static void main(String[] args) {
@@ -96,31 +94,7 @@ public class BarnsleyFern extends Application {
         t.start();
     }
 
-//    private double stolenMap(double value, double iStart, double iStop, double oStart, double oStop) {
-//        return oStart + (oStop - oStart) * ((value - iStart) / (iStop - iStart));
-//    }
-
-    static public final double stolenMap(double value,
-                                  double start1, double stop1,
-                                  double start2, double stop2) {
-        double outgoing =
-                start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-//        String badness = null;
-//        if (outgoing != outgoing) {
-//            badness = "NaN (not a number)";
-//
-//        } else if (outgoing == Float.NEGATIVE_INFINITY ||
-//                outgoing == Float.POSITIVE_INFINITY) {
-////            badness = "infinity";
-//        }
-//        if (badness != null) {
-//            final String msg =
-//                    String.format("map(%s, %s, %s, %s, %s) called, which returns %s",
-//                            nf(value), nf(start1), nf(stop1),
-//                            nf(start2), nf(stop2), badness);
-//            PGraphics.showWarning(msg);
-//        }
-        return outgoing;
+    private double scaleSize(double value, double iStart, double iStop, double oStart, double oStop) {
+        return oStart + (oStop - oStart) * ((value - iStart) / (iStop - iStart));
     }
-
 }
